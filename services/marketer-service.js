@@ -13,11 +13,12 @@ module.exports = {
     update
 }
 
-function query() {
+function query(sortParams) {
     return mongoService.connect()
         .then(db => {
             const collection = db.collection('marketers');
-            return collection.find().toArray();
+            var sortBy = sortParams.sort
+            return collection.find().sort({ [sortBy]: 1 }).toArray();
         })
 }
 
